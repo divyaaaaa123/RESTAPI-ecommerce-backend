@@ -102,3 +102,45 @@ The API includes test cases to ensure proper functionality. To run tests:
 
 1. Make sure the server is not running (`npm start`).
 2. Run tests: `npm test
+
+## Dockerization
+
+To containerize the application using Docker, follow these steps:
+
+1. Create a Dockerfile in the root of your project. Copy and paste the following content into the Dockerfile:
+
+    ```Dockerfile
+    FROM node:14
+
+    WORKDIR /usr/src/app
+
+    COPY package*.json ./
+
+    RUN npm install
+
+    COPY . .
+
+    EXPOSE 3000
+
+    CMD ["node", "index.js"]
+    ```
+
+2. Build the Docker image:
+
+    ```bash
+    docker build -t e-commerce-api .
+    ```
+
+3. Run the Docker container:
+
+    ```bash
+    docker run -p 3000:3000 e-commerce-api
+    ```
+
+   The `-p` flag maps port 3000 on your local machine to port 3000 in the Docker container.
+
+Now your E-commerce API is containerized and can be run in any environment with Docker support. Ensure you have Docker installed on your system to follow these steps.
+
+**Note:** The provided Dockerfile assumes your application listens on port 3000. If your application uses a different port, update the `EXPOSE` statement and the port mapping accordingly.
+
+
